@@ -223,7 +223,7 @@ class Config(PretrainedConfig):
         self.n_layers = n_layers
         self.dropout = dropout
         super().__init__(**kwargs)
-         
+        
 
 class LLM(PreTrainedModel):
     config_class = Config
@@ -259,7 +259,7 @@ class LLM(PreTrainedModel):
             
         
     def forward(self, input_ids, labels, use_kv_cache=False):
-       
+        
         hidden_states = self.token_embeddings(input_ids) 
         hidden_states = self.dropout(hidden_states)  
         for idx, layer in enumerate(self.layers):
@@ -319,7 +319,7 @@ if __name__ == '__main__':
     print(f'模型参数量为：{sum(p.numel() for p in model.parameters() if p.requires_grad)}')
 
     data_collator = DefaultDataCollator()
-    tokenizer = AutoTokenizer.from_pretrained("./tokenizer", use_fast=True)
+    tokenizer = AutoTokenizer.from_pretrained("./train_llm_from_scratch/tokenizer", use_fast=True)
     args = TrainingArguments(output_dir='./results2048', 
                             num_train_epochs=10, 
                             do_train=True, 

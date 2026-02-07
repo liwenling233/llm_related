@@ -12,7 +12,7 @@ from copy import deepcopy
 from datasets import load_dataset
 from reward_func import *
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 
 
 class GSM8KDataset(Dataset):
@@ -367,7 +367,7 @@ class GRPOTrainer:
 
 if __name__ == "__main__":
     import os
-    os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+    # os.environ['CUDA_VISIBLE_DEVICES'] = '2'
     
     SYSTEM_PROMPT = """
 按照如下格式回答问题：
@@ -383,8 +383,10 @@ if __name__ == "__main__":
     
     writer = SummaryWriter('./runs')
     # 策略模型
-    tokenizer = AutoTokenizer.from_pretrained('/home/user/Downloads/Qwen2.5-1.5B-Instruct')
-    model = AutoModelForCausalLM.from_pretrained('/home/user/Downloads/Qwen2.5-1.5B-Instruct')
+    # tokenizer = AutoTokenizer.from_pretrained('/home/user/Downloads/Qwen2.5-1.5B-Instruct')
+    # model = AutoModelForCausalLM.from_pretrained('/home/user/Downloads/Qwen2.5-1.5B-Instruct')
+    tokenizer = AutoTokenizer.from_pretrained('D:\Pretrained_models\Qwen\Qwen2.5-1.5B-Instruct')
+    model = AutoModelForCausalLM.from_pretrained('D:\Pretrained_models\Qwen\Qwen2.5-1.5B-Instruct')
     # 奖励函数
     # reward_model = '/home/user/Downloads/reward-model-deberta-v3-large-v2'
     # reward_tokenizer = AutoTokenizer.from_pretrained('/home/user/Downloads/reward-model-deberta-v3-large-v2')
@@ -392,7 +394,9 @@ if __name__ == "__main__":
 
     
     
-    prompts_dataset = GSM8KDataset('/home/user/wyf/deepseek_learn/gsm8k_chinese', tokenizer)
+    # prompts_dataset = GSM8KDataset('/home/user/wyf/deepseek_learn/gsm8k_chinese', tokenizer)
+    prompts_dataset = GSM8KDataset("swulling/gsm8k_chinese", tokenizer)
+    
   
     trainer = GRPOTrainer(model=model,
                           reward_funcs = [correctness_reward, digit_reward, hard_format_reward, mark_reward],
